@@ -34,7 +34,17 @@ const Board = (props) => {
 
   }, []);
 
-  
+  const deleteCard = (id) => {
+    axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
+    .then((response) => {
+      const newCards = cards.filter(card => card.id !== id);
+      setCards(newCards);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    })
+  };
+
   
   const cardComponents = cards.map((card, i) => {
     return (
@@ -43,6 +53,7 @@ const Board = (props) => {
       key={i}
       text={card.text}
       emoji={card.emoji}
+      deleteCardCallback={deleteCard}
       />
     );
   });
