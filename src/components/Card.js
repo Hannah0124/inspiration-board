@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
-
+import randomColor from 'randomcolor';
 import './Card.css';
 
 const Card = (props) => {
@@ -12,12 +12,13 @@ const Card = (props) => {
   }
 
   return (
-    <div className="card">
+    <div style={{background: `${randomColor()}`}} className="card">
       <section className="card__content">
         <p className="card__content-text">{props.text && props.text}</p>
         <span className="card__content-emoji">{props.emoji && emoji.getUnicode(props.emoji)}</span>
-        <button className="card__delete" onClick={removeCardBtn}>Delete</button>
       </section>
+      
+      <button className="card__delete" onClick={removeCardBtn}>Delete</button>
     </div>
   )
 }

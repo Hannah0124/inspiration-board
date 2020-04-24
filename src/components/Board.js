@@ -1,17 +1,18 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 const Board = (props) => {
   const BASE_URL = `${props.url}${props.boardName}/cards`
 
   const[cards, setCards] = useState([]);
   const[errorMessage, setErrorMessage] = useState(null);
+
 
   useEffect(() => {
     axios.get(BASE_URL)
@@ -33,6 +34,7 @@ const Board = (props) => {
       });
   }, []);
 
+
   // Wave 3
   const deleteCard = (id) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
@@ -44,6 +46,7 @@ const Board = (props) => {
       setErrorMessage(error.message);
     })
   };
+
 
   // Wave 3
   const addCard = (cardInfo) => {
@@ -64,23 +67,31 @@ const Board = (props) => {
     })
   }
 
-  
+  // TODO
   const cardComponents = cards.map((card, i) => {
     return (
-      <Card 
-      id={card.id}
-      key={i}
-      text={card.text}
-      emoji={card.emoji}
-      deleteCardCallback={deleteCard}
-      />
+      <section key={card.id}>
+        <Card 
+          id={card.id}
+          text={card.text}
+          emoji={card.emoji}
+          deleteCardCallback={deleteCard}
+        />
+      </section>
     );
   });
 
   return (
-    <div>
-      {errorMessage && <div><h2>{errorMessage}</h2></div>}
-      {cardComponents}
+    <div className="validation-errors-display">
+
+      {errorMessage &&
+      <div className="validation-errors-display__list">
+        <h2>{errorMessage}</h2>
+      </div>}
+
+      <div className="board">
+        {cardComponents}
+      </div>
       <NewCardForm 
         addCardCallback={addCard}
       />
