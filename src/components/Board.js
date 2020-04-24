@@ -16,24 +16,24 @@ const Board = (props) => {
   useEffect(() => {
     axios.get(BASE_URL)
     .then((response) => {
-     const apiData = response.data;
-     console.log(apiData);
+      const apiData = response.data;
+      console.log(apiData);
 
-     const cardObjects = apiData.map((cardWrapper, i) => {
-      return {
-        id: cardWrapper.card.id,
-        text: cardWrapper.card.text,
-        emoji: cardWrapper.card.emoji
-      }
-     });
-     setCards(cardObjects);
-    })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
-
+      const cardObjects = apiData.map((cardWrapper, i) => {
+        return {
+          id: cardWrapper.card.id,
+          text: cardWrapper.card.text,
+          emoji: cardWrapper.card.emoji
+        }
+      });
+      setCards(cardObjects);
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
   }, []);
 
+  // Wave 3
   const deleteCard = (id) => {
     axios.delete(`https://inspiration-board.herokuapp.com/cards/${id}`)
     .then((response) => {
@@ -44,6 +44,25 @@ const Board = (props) => {
       setErrorMessage(error.message);
     })
   };
+
+  // Wave 3
+  const addCard = (cardInfo) => {
+    const nextId = Math.max(...cards.map(card => card.id)) + 1;
+
+    axios.post(BASE_URL, cardInfo)
+    .then((response) => {
+      const newCards = [...cards];
+      const newCard = {
+        id: nextId,
+        ...cardInfo
+      };
+      newCards.unshift(newCard);
+      setCards(newCards);
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    })
+  }
 
   
   const cardComponents = cards.map((card, i) => {
@@ -62,6 +81,9 @@ const Board = (props) => {
     <div>
       {errorMessage && <div><h2>{errorMessage}</h2></div>}
       {cardComponents}
+      <NewCardForm 
+        addCardCallback={addCard}
+      />
     </div>
   )
 };
