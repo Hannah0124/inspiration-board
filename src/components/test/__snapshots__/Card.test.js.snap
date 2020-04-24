@@ -4,7 +4,7 @@ exports[`Card that it matches the existing snapshot 1`] = `
 <DocumentFragment>
   <div
     class="card"
-    style="background: rgb(160, 193, 239);"
+    style="background: rgb(214, 124, 34);"
   >
     <section
       class="card__content"
