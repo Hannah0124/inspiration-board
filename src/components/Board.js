@@ -32,7 +32,7 @@ const Board = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []);
+  }, [props.boardName]);
 
 
   // Wave 3
