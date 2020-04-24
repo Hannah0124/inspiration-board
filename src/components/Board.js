@@ -67,8 +67,7 @@ const Board = (props) => {
     })
   }
 
-  // TODO
-  const cardComponents = cards.map((card, i) => {
+  const cardComponents = cards.map((card) => {
     return (
       <section key={card.id}>
         <Card 
