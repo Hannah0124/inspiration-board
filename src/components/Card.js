@@ -7,7 +7,6 @@ import './Card.css';
 const Card = (props) => {
 
   const removeCardBtn = () => {
-    console.log('you just clicked the delete button!!');
     props.deleteCardCallback(props.id);
   }
 
@@ -17,7 +16,7 @@ const Card = (props) => {
         <p className="card__content-text">{props.text && props.text}</p>
         <span className="card__content-emoji">{props.emoji && emoji.getUnicode(props.emoji)}</span>
       </section>
-      
+    
       <button className="card__delete" onClick={removeCardBtn}>Delete</button>
     </div>
   )
