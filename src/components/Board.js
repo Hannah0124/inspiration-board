@@ -18,7 +18,6 @@ const Board = (props) => {
     axios.get(BASE_URL)
     .then((response) => {
       const apiData = response.data;
-      console.log(apiData);
 
       const cardObjects = apiData.map((cardWrapper, i) => {
         return {
